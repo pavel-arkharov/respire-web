@@ -1,19 +1,12 @@
 import Vuex from "vuex";
+import timer from "./modules/timer";
+import settings from "./modules/settings";
+import exercise from "./modules/exercise";
 
 export default new Vuex.Store({
-	state: {
-		inhaleDuration: 4,
-		exhaleDuration: 6,
-		holdDuration: 2,
-		// ... other state properties
-	},
-	mutations: {
-		SET_INHALE_DURATION(state, duration) {
-			state.inhaleDuration = duration;
-		},
-		// ... other mutations
-	},
-	actions: {
-		// ... actions if needed
+	modules: {
+		timer,
+		settings,
+		exercise,
 	},
 });
