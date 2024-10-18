@@ -11,24 +11,27 @@ export default {
 	state: {
 		phases: {
 			inhale: 4,
-			hold1: 2,
-			exhale: 6,
-			hold2: 2,
+			hold1: 4,
+			exhale: 4,
+			hold2: 4,
 		},
 		currentPhase: PHASE.INHALE,
-		cycles: [],
-		currentCycle: 0,
-		rounds: 3,
+		cycles: [[4, 4, 4, 4]],
+		currentCycle: 1,
+		rounds: 1,
 		currentRound: 1,
 	},
 	mutations: {
 		SET_PHASE_DURATION(state, { phase, duration }) {
+			console.log("SET_PHASE_DURATION", phase, duration);
 			state.phases[phase] = duration;
 		},
 		SET_CYCLES(state, cycles) {
+			console.log("SET_CYCLES", cycles);
 			state.cycles = cycles;
 		},
 		SET_ROUNDS(state, rounds) {
+			console.log("SET_ROUNDS", rounds);
 			state.rounds = rounds;
 		},
 		NEXT_PHASE(state) {

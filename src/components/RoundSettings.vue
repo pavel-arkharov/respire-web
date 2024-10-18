@@ -15,7 +15,7 @@
 				/>
 			</div>
 			<div>
-				<label for="hold1">Hold 1 Duration (seconds):</label>
+				<label for="hold1">Hold Duration (seconds):</label>
 				<input
 					type="number"
 					v-model="hold1"
@@ -38,7 +38,7 @@
 					step="1"
 				/>
 			</div>
-			<div>
+			<!-- <div>
 				<label for="hold2">Hold 2 Duration (seconds):</label>
 				<input
 					type="number"
@@ -49,7 +49,7 @@
 					max="60"
 					step="1"
 				/>
-			</div>
+			</div> -->
 			<div>
 				<label for="cycles">Number of Cycles:</label>
 				<input
@@ -80,18 +80,25 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 
 export default {
+	name: "RoundSettings",
+	components: {},
 	data() {
 		return {
-			inhale: 4, // Set default values
-			hold1: 2,
-			exhale: 6,
-			hold2: 2,
+			inhale: 4,
+			hold1: 4,
+			exhale: 4,
+			hold2: 4,
 			cycles: 1,
 			rounds: 1,
 		};
+	},
+	watch: {
+		hold1(newVal) {
+			this.hold2 = newVal;
+		},
 	},
 	methods: {
 		...mapMutations("exercise", [
@@ -99,7 +106,16 @@ export default {
 			"SET_CYCLES",
 			"SET_ROUNDS",
 		]),
+		...mapState("exercise", ["phases"]),
 		updateExerciseSettings() {
+			console.log("updateExerciseSettings with", {
+				inhale: this.inhale,
+				hold1: this.hold1,
+				exhale: this.exhale,
+				hold2: this.hold2,
+				cycles: this.cycles,
+				rounds: this.rounds,
+			});
 			this.SET_PHASE_DURATION({ phase: "inhale", duration: this.inhale });
 			this.SET_PHASE_DURATION({ phase: "hold1", duration: this.hold1 });
 			this.SET_PHASE_DURATION({ phase: "exhale", duration: this.exhale });
