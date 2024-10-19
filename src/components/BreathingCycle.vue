@@ -26,13 +26,23 @@ export default {
 	},
 	methods: {
 		...mapMutations("timer", ["SET_CURRENT_TIME"]),
-		...mapActions("exercise", ["GENERATE_CYCLE", "CLEAR_CYCLE"]),
+		...mapActions("timer", ["resetTimer"]),
+		...mapActions("exercise", ["generateCycle", "shiftCycle", "CLEAR_CYCLE"]),
 		updateExerciseSettings() {
 			console.log("Exercise settings updated, adding cycle");
-			this.GENERATE_CYCLE();
-			console.log("Current phaseName", this.getCurrentPhase);
-			console.log("Current phase duration", this.getCurrentPhaseDuration);
-			this.startTimer(this.getCurrentPhaseDuration);
+			this.generateCycle();
+			this.startNextCycle();
+		},
+		startNextCycle() {
+			console.log("Starting next cycle");
+			const nextPhase = this.getCurrentPhaseDuration;
+			if (nextPhase) {
+				console.log("Starting next phase with duration", nextPhase);
+				this.startTimer(nextPhase);
+			} else {
+				console.log("All cycles finished");
+				this.resetTimer();
+			}
 		},
 
 		startTimer(duration) {
@@ -43,7 +53,10 @@ export default {
 				this.SET_CURRENT_TIME(minutes * 60 + seconds);
 			});
 			timer.onFinish(() => {
-				console.log("Timer finished");
+				console.log("EMitting timer-finished");
+				this.shiftCycle();
+				console.log("Timer finished, got Current phaseName");
+				this.startNextCycle();
 			});
 			timer.start();
 		},

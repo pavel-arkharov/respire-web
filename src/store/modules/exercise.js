@@ -1,4 +1,5 @@
 import { PHASE, PHASE_NAMES } from "@/constants";
+import { watch } from "vue";
 
 export default {
 	namespaced: true,
@@ -74,11 +75,19 @@ export default {
 			state.currentCycleIndex = 0;
 		},
 	},
+	watch: {
+		cycles: {
+			handler(cycles) {
+				console.log("Cycles updated:", cycles);
+			},
+			deep: true,
+		},
+	},
 	actions: {
-		GENERATE_CYCLE({ commit, state }) {
+		generateCycle({ commit, state }) {
 			const { inhale, hold1, exhale, hold2 } = state.phases;
 
-			console.log("GENERATE_CYCLE", inhale, hold1, exhale, hold2);
+			console.log("generateCycle", inhale, hold1, exhale, hold2);
 
 			const cycle = [
 				{ phase: PHASE.INHALE, duration: inhale },
@@ -89,9 +98,8 @@ export default {
 			console.log("Generated cycle:", cycle);
 			commit("APPEND_CYCLE", cycle);
 		},
-		CLEAR_CYCLES({ commit }) {
-			console.log("CLEAR_CYCLES");
-			commit("SET_CYCLES", []);
+		shiftCycle({ commit }) {
+			commit("SHIFT_CYCLE");
 		},
 	},
 };

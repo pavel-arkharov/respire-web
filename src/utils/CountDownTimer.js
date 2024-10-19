@@ -23,6 +23,10 @@ CountDownTimer.prototype.start = function () {
 		} else {
 			diff = 0;
 			that.running = false;
+
+			if (that.onFinish) {
+				that.onFinish();
+			}
 		}
 
 		obj = CountDownTimer.parse(diff);
@@ -41,9 +45,7 @@ CountDownTimer.prototype.onTick = function (ftn) {
 
 CountDownTimer.prototype.onFinish = function (ftn) {
 	if (typeof ftn === "function") {
-		this.tickFtns.push(function () {
-			setTimeout(ftn, 0);
-		});
+		this.onFinish = ftn;
 	}
 	return this;
 };
