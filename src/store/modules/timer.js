@@ -17,10 +17,12 @@ export default {
 		},
 	},
 	actions: {
-		startTimer({ commit }) {
+		startCountdown({ commit }) {
+			console.log("Starting timer");
 			commit("SET_IS_RUNNING", true);
 		},
 		resetTimer({ commit }) {
+			console.log("Resetting timer");
 			commit("SET_CURRENT_TIME", 0);
 			commit("SET_IS_RUNNING", false);
 			commit("SET_IS_PAUSED", false);

@@ -16,7 +16,7 @@ export default {
 		rounds: 1,
 	},
 	getters: {
-		getCurrentPhase(state) {
+		getCurrentPhaseName(state) {
 			if (state.cycles.length === 0) {
 				return null; // No cycles defined yet
 			}

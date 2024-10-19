@@ -1,8 +1,8 @@
 <template>
 	<div class="breathing-cycle">
-		<RoundSettings @submit="updateExerciseSettings" />
+		<RoundSettings v-if="!isRunning" @submit="updateExerciseSettings" />
 
-		<TimerVisualization />
+		<TimerVisualization v-if="isRunning" />
 	</div>
 </template>
 
@@ -20,13 +20,14 @@ export default {
 	},
 	computed: {
 		...mapGetters("exercise", ["getCurrentPhase", "getCurrentPhaseDuration"]),
+		...mapState("timer", ["isRunning"]),
 	},
 	onMounted() {
 		console.log("BreathingCycle mounted");
 	},
 	methods: {
 		...mapMutations("timer", ["SET_CURRENT_TIME"]),
-		...mapActions("timer", ["resetTimer"]),
+		...mapActions("timer", ["resetTimer", "startCountdown"]),
 		...mapActions("exercise", ["generateCycle", "shiftCycle", "CLEAR_CYCLE"]),
 		updateExerciseSettings() {
 			console.log("Exercise settings updated, adding cycle");
@@ -58,6 +59,7 @@ export default {
 				console.log("Timer finished, got Current phaseName");
 				this.startNextCycle();
 			});
+			this.startCountdown();
 			timer.start();
 		},
 	},

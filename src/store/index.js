@@ -7,18 +7,18 @@ export default new Vuex.Store({
 		timer,
 		exercise,
 	},
-	getters: {
-		getCurrentTime: (state) => {
-			return state.timer.currentTime;
-		},
-		getIsRunning: (state) => {
-			return state.timer.isRunning;
-		},
-		getIsPaused: (state) => {
-			return state.timer.isPaused;
-		},
-		getCurrentPhase: (state) => {
-			return state.exercise.currentPhase;
-		},
-	},
+	// getters: {
+	// 	getCurrentTime: (state) => {
+	// 		return state.timer.currentTime;
+	// 	},
+	// 	getIsRunning: (state) => {
+	// 		return state.timer.isRunning;
+	// 	},
+	// 	getIsPaused: (state) => {
+	// 		return state.timer.isPaused;
+	// 	},
+	// 	getCurrentPhase: (state) => {
+	// 		return state.exercise.currentPhase;
+	// 	},
+	// },
 });

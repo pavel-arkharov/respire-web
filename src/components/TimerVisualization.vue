@@ -1,6 +1,6 @@
 <template>
 	<div class="timer-visualization">
-		<p>Phase: {{ displayPhaseName }}</p>
+		<p>Phase: {{ currentPhase }}</p>
 		<svg viewBox="0 0 100 100">
 			<circle
 				cx="50"
@@ -30,7 +30,7 @@ import { mapState } from "vuex";
 
 export default {
 	computed: {
-		...mapState("exercise", ["currentPhaseName"]),
+		...mapState("exercise", ["currentPhase"]),
 		...mapState("timer", ["currentTime"]),
 		circumference() {
 			const radius = 45;
@@ -54,10 +54,6 @@ export default {
 			return `${seconds.toString().padStart(2, "0")}:${milliseconds
 				.toString()
 				.padStart(3, "0")}`;
-		},
-		displayPhaseName() {
-			const phaseName = this.$store.state.exercise.currentPhase;
-			return phaseName;
 		},
 	},
 };
