@@ -31,7 +31,7 @@ export default {
 	computed: {
 		...mapState("timer", ["currentTime"]),
 		circumference() {
-			const radius = 45; // Radius of the circle
+			const radius = 45;
 			return 2 * Math.PI * radius;
 		},
 		strokeDashoffset() {
@@ -39,7 +39,6 @@ export default {
 			return this.circumference * (1 - progress);
 		},
 		totalDuration() {
-			// Calculate the total duration of the current cycle
 			let total = 0;
 			const phases = this.$store.state.exercise.phases;
 			for (const phase in phases) {
@@ -48,13 +47,11 @@ export default {
 			return total;
 		},
 		formattedCurrentTime() {
-			const totalSeconds = Math.ceil(this.currentTime); // Round up to nearest second
-			const minutes = Math.floor(totalSeconds / 60);
-			const seconds = totalSeconds % 60;
-			const formattedTime = `${minutes.toString().padStart(2, "0")}:${seconds
+			const seconds = Math.floor(this.currentTime);
+			const milliseconds = Math.floor((this.currentTime - seconds) * 1000);
+			return `${seconds.toString().padStart(2, "0")}:${milliseconds
 				.toString()
-				.padStart(2, "0")}`;
-			return formattedTime;
+				.padStart(3, "0")}`;
 		},
 	},
 };

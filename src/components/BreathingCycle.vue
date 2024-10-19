@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapActions, mapGetters, mapMutations, mapState } from "vuex";
 import CountDownTimer from "../utils/CountDownTimer";
 import RoundSettings from "./RoundSettings.vue";
 import TimerVisualization from "./TimerVisualization.vue";
@@ -18,20 +18,32 @@ export default {
 		RoundSettings,
 		TimerVisualization,
 	},
+	computed: {
+		...mapGetters("exercise", ["getCurrentPhase", "getCurrentPhaseDuration"]),
+	},
+	onMounted() {
+		console.log("BreathingCycle mounted");
+	},
 	methods: {
 		...mapMutations("timer", ["SET_CURRENT_TIME"]),
+		...mapActions("exercise", ["GENERATE_CYCLE", "CLEAR_CYCLE"]),
 		updateExerciseSettings() {
-			console.log("Exercise settings updated, starting timer");
-			this.startTimer();
+			console.log("Exercise settings updated, adding cycle");
+			this.GENERATE_CYCLE();
+			console.log("Current phaseName", this.getCurrentPhase);
+			console.log("Current phase duration", this.getCurrentPhaseDuration);
+			this.startTimer(this.getCurrentPhaseDuration);
 		},
-		startTimer() {
-			const timer = new CountDownTimer(
-				this.$store.state.exercise.phases.inhale
-			);
+
+		startTimer(duration) {
+			const timer = new CountDownTimer(duration);
 			timer.onTick((minutes, seconds) => {
 				// Update the store with the current time
 				console.log("seconds", seconds);
 				this.SET_CURRENT_TIME(minutes * 60 + seconds);
+			});
+			timer.onFinish(() => {
+				console.log("Timer finished");
 			});
 			timer.start();
 		},

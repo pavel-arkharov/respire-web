@@ -1,15 +1,14 @@
 <template>
-	<div id="app" :class="colorScheme">
+	<div id="app" :class="dark">
 		<router-view />
 	</div>
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 export default {
+	name: "App",
 	computed: {
-		...mapState("settings", ["colorScheme"]),
+		//...mapState("settings", ["colorScheme"]),
 	},
 };
 </script>

@@ -39,6 +39,15 @@ CountDownTimer.prototype.onTick = function (ftn) {
 	return this;
 };
 
+CountDownTimer.prototype.onFinish = function (ftn) {
+	if (typeof ftn === "function") {
+		this.tickFtns.push(function () {
+			setTimeout(ftn, 0);
+		});
+	}
+	return this;
+};
+
 CountDownTimer.prototype.expired = function () {
 	return !this.running;
 };

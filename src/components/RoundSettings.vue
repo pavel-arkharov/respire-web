@@ -120,8 +120,6 @@ export default {
 			this.SET_PHASE_DURATION({ phase: "hold1", duration: this.hold1 });
 			this.SET_PHASE_DURATION({ phase: "exhale", duration: this.exhale });
 			this.SET_PHASE_DURATION({ phase: "hold2", duration: this.hold2 });
-			this.SET_CYCLES(this.cycles);
-			this.SET_ROUNDS(this.rounds);
 
 			this.$emit("exercise-settings-updated");
 		},
