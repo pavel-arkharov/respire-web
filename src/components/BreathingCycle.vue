@@ -47,16 +47,14 @@ export default {
 		},
 
 		startTimer(duration) {
+			this.SET_CURRENT_TIME(duration);
 			const timer = new CountDownTimer(duration);
-			timer.onTick((minutes, seconds) => {
-				// Update the store with the current time
-				console.log("seconds", seconds);
-				this.SET_CURRENT_TIME(minutes * 60 + seconds);
+			timer.onTick((minutes, seconds, milliseconds) => {
+				this.SET_CURRENT_TIME(minutes * 60 + seconds + milliseconds / 1000);
 			});
 			timer.onFinish(() => {
 				console.log("EMitting timer-finished");
 				this.shiftCycle();
-				console.log("Timer finished, got Current phaseName");
 				this.startNextCycle();
 			});
 			this.startCountdown();

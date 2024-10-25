@@ -1,5 +1,4 @@
-import { PHASE, PHASE_NAMES } from "@/constants";
-import { watch } from "vue";
+import { PHASE } from "@/constants";
 
 export default {
 	namespaced: true,

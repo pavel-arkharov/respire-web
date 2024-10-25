@@ -26,18 +26,23 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 export default {
 	computed: {
 		...mapState("exercise", ["currentPhase"]),
 		...mapState("timer", ["currentTime"]),
+		...mapGetters("exercise", ["getCurrentPhaseDuration"]),
 		circumference() {
 			const radius = 45;
 			return 2 * Math.PI * radius;
 		},
 		strokeDashoffset() {
-			const progress = this.currentTime / this.totalDuration;
+			const phaseDuration = this.getCurrentPhaseDuration;
+			if (!phaseDuration) return 0; // Handle case where phase duration is not yet available
+
+			const elapsedPhaseTime = this.currentTime; // Assuming currentTime is relative to the current phase
+			const progress = elapsedPhaseTime / phaseDuration;
 			return this.circumference * (1 - progress);
 		},
 		totalDuration() {

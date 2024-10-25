@@ -1,4 +1,4 @@
-export default function CountDownTimer(duration, granularity = 1000) {
+export default function CountDownTimer(duration, granularity = 100) {
 	this.duration = duration;
 	this.granularity = granularity;
 	this.tickFtns = [];
@@ -10,13 +10,14 @@ CountDownTimer.prototype.start = function () {
 		return;
 	}
 	this.running = true;
-	var start = Date.now(),
+	var start = performance.now(),
 		that = this,
 		diff,
 		obj;
+	obj = CountDownTimer.parse(this.duration);
 
 	(function timer() {
-		diff = that.duration - (((Date.now() - start) / 1000) | 0);
+		diff = that.duration - (performance.now() - start) / 1000;
 
 		if (diff > 0) {
 			setTimeout(timer, that.granularity);
@@ -30,8 +31,9 @@ CountDownTimer.prototype.start = function () {
 		}
 
 		obj = CountDownTimer.parse(diff);
+		console.log(obj);
 		that.tickFtns.forEach(function (ftn) {
-			ftn.call(this, obj.minutes, obj.seconds);
+			ftn.call(this, obj.minutes, obj.seconds, obj.milliseconds);
 		}, that);
 	})();
 };
@@ -55,8 +57,12 @@ CountDownTimer.prototype.expired = function () {
 };
 
 CountDownTimer.parse = function (seconds) {
+	const minutes = Math.floor(seconds / 60);
+	const remainingSeconds = Math.floor(seconds % 60);
+	const milliseconds = Math.floor((seconds % 1) * 1000);
 	return {
-		minutes: (seconds / 60) | 0,
-		seconds: seconds % 60 | 0,
+		minutes: minutes,
+		seconds: remainingSeconds,
+		milliseconds: milliseconds,
 	};
 };
