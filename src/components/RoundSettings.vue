@@ -50,7 +50,7 @@
 					step="1"
 				/>
 			</div> -->
-			<div>
+			<!-- <div>
 				<label for="cycles">Number of Cycles:</label>
 				<input
 					type="number"
@@ -61,8 +61,8 @@
 					max="5"
 					step="1"
 				/>
-			</div>
-			<div>
+			</div> -->
+			<!-- <div>
 				<label for="rounds">Number of Rounds:</label>
 				<input
 					type="number"
@@ -73,8 +73,8 @@
 					max="5"
 					step="1"
 				/>
-			</div>
-			<button type="submit">Start</button>
+			</div> -->
+			<button type="submit">Add breath-cycle</button>
 		</form>
 	</div>
 </template>
@@ -103,8 +103,8 @@ export default {
 	methods: {
 		...mapMutations("exercise", [
 			"SET_PHASE_DURATION",
-			"SET_CYCLES",
-			"SET_ROUNDS",
+			// "SET_CYCLES",
+			// "SET_ROUNDS",
 		]),
 		...mapState("exercise", ["phases"]),
 		updateExerciseSettings() {
@@ -113,8 +113,8 @@ export default {
 				hold1: this.hold1,
 				exhale: this.exhale,
 				hold2: this.hold2,
-				cycles: this.cycles,
-				rounds: this.rounds,
+				// cycles: this.cycles,
+				// rounds: this.rounds,
 			});
 			this.SET_PHASE_DURATION({ phase: "inhale", duration: this.inhale });
 			this.SET_PHASE_DURATION({ phase: "hold1", duration: this.hold1 });

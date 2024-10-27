@@ -47,6 +47,9 @@ export default {
 			}
 			return currentCycle[0].duration; // Return the duration of the first item
 		},
+		getCyclesLength(state) {
+			return state.cycles.length;
+		},
 	},
 	mutations: {
 		SET_PHASE_DURATION(state, { phase, duration }) {
