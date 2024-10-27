@@ -1,13 +1,20 @@
 <template>
 	<div class="cycles-preview">
 		<h2>Exercise Preview</h2>
-		<div v-for="(cycle, index) in cycles" :key="index" class="cycle">
-			<h3>Cycle {{ index + 1 }}</h3>
-			<ul>
-				<li v-for="phase in cycle" :key="phase.phase">
-					{{ phase.phase }}: {{ phase.duration }} seconds
-				</li>
-			</ul>
+		<div class="cycles-container">
+			<div v-for="(cycle, index) in cycles" :key="index" class="cycle">
+				<h3>Cycle {{ index + 1 }}</h3>
+				<ul>
+					<li
+						v-for="(phase, phaseIndex) in cycle"
+						:key="phaseIndex"
+						class="phase"
+					>
+						<span class="phase-name">{{ phase.phase }}</span>
+						<span class="phase-duration">{{ phase.duration }}s</span>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </template>
@@ -25,23 +32,44 @@ export default {
 
 <style scoped>
 .cycles-preview {
-	/* Add your component styles here */
+	text-align: center;
+}
+
+.cycles-container {
+	display: flex;
+	flex-direction: column; /* Arrange cycles vertically */
+	align-items: center;
+	gap: 10px; /* Spacing between cycles */
 }
 
 .cycle {
-	margin-bottom: 20px;
+	background-color: #f5f5f5; /* Light background */
+	border-radius: 8px;
+	padding: 10px;
+	width: 80%; /* Adjust width as needed */
 }
 
 .cycle h3 {
-	margin: 0;
+	margin: 0 0 10px 0; /* Reduce top margin */
 }
 
 .cycle ul {
 	list-style-type: none;
 	padding: 0;
+	display: flex;
+	flex-direction: column; /* Arrange phases vertically */
+	gap: 5px;
 }
 
-.cycle li {
-	margin: 5px 0;
+.phase {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid #ddd; /* Subtle separator */
+	padding-bottom: 5px;
+}
+
+.phase-name {
+	font-weight: bold;
 }
 </style>
