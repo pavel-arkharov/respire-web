@@ -1,20 +1,32 @@
 import { PHASE } from "@/constants";
 
+const initialPhases = {
+	inhale: 4,
+	hold1: 4,
+	exhale: 4,
+	hold2: 4,
+};
+
 export default {
 	namespaced: true,
 	state: {
-		phases: {
-			inhale: 4,
-			hold1: 4,
-			exhale: 4,
-			hold2: 4,
-		},
+		phases: initialPhases,
 		cycles: [],
 		currentPhase: PHASE.INHALE,
 		currentCycleIndex: 0,
 		rounds: 1,
 	},
 	getters: {
+		getCurrentPhase(state) {
+			if (state.cycles.length === 0) {
+				return null; // No cycles defined yet
+			}
+			const currentCycle = state.cycles[state.currentCycleIndex];
+			if (currentCycle.length === 0) {
+				return null; // Current cycle is empty
+			}
+			return currentCycle[0]; // Return the first item
+		},
 		getCurrentPhaseName(state) {
 			if (state.cycles.length === 0) {
 				return null; // No cycles defined yet
@@ -70,7 +82,13 @@ export default {
 		},
 		CLEAR_CYCLES(state) {
 			console.log("CLEAR_CYCLES");
-			state.cycles = [];
+			state.phases = initialPhases;
+			if (state.cycles.length > 0) {
+				console.log("Cycles length is greater than 0");
+				state.cycles = [];
+			} else {
+				console.log("Cycles length is 0");
+			}
 			state.currentCycleIndex = 0;
 		},
 	},
@@ -99,6 +117,9 @@ export default {
 		},
 		shiftCycle({ commit }) {
 			commit("SHIFT_CYCLE");
+		},
+		clearCycles({ commit }) {
+			commit("CLEAR_CYCLES");
 		},
 	},
 };

@@ -28,7 +28,7 @@ export default {
 	methods: {
 		...mapMutations("timer", ["SET_CURRENT_TIME"]),
 		...mapActions("timer", ["resetTimer", "startCountdown"]),
-		...mapActions("exercise", ["generateCycle", "shiftCycle", "CLEAR_CYCLE"]),
+		...mapActions("exercise", ["generateCycle", "shiftCycle", "clearCycles"]),
 		updateExerciseSettings() {
 			console.log("Exercise settings updated, adding cycle");
 			this.generateCycle();
@@ -43,6 +43,7 @@ export default {
 			} else {
 				console.log("All cycles finished");
 				this.resetTimer();
+				this.clearCycles();
 			}
 		},
 

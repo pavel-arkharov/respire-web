@@ -31,7 +31,6 @@ CountDownTimer.prototype.start = function () {
 		}
 
 		obj = CountDownTimer.parse(diff);
-		console.log(obj);
 		that.tickFtns.forEach(function (ftn) {
 			ftn.call(this, obj.minutes, obj.seconds, obj.milliseconds);
 		}, that);
